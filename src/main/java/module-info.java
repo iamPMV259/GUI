@@ -7,9 +7,15 @@ module com.app {
     opens application to javafx.fxml;
     exports application;
 
-    opens chart to javafx.fxml;
-    exports chart;
+    opens controller to javafx.fxml;
+    exports controller;
 
-    opens search to javafx.fxml;
-    exports search;
+    opens model to javafx.fxml;
+    exports model;
+
+    opens view to javafx.fxml;
+    exports view;
+
+    opens utils to javafx.fxml;
+    exports utils;
 }

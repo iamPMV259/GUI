@@ -17,8 +17,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.awt.Desktop;    
 
 public class SearchCsvApp extends Application {
 
@@ -217,7 +221,7 @@ public class SearchCsvApp extends Application {
         }
     }
 
-    private void loadCsvFile(File file) {
+        private void loadCsvFile(File file) {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             boolean isFirstRow = tableView.getColumns().isEmpty();
@@ -225,22 +229,61 @@ public class SearchCsvApp extends Application {
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
 
+                // Thiết lập các cột dựa trên dòng đầu tiên (header)
                 if (isFirstRow) {
                     for (int i = 0; i < values.length; i++) {
                         final int colIndex = i;
                         TableColumn<ObservableList<String>, String> column = new TableColumn<>(values[i]);
-                        column.setCellValueFactory(data ->
-                                new SimpleStringProperty(data.getValue().get(colIndex)));
+                        column.setCellValueFactory(data -> 
+                            new SimpleStringProperty(data.getValue().get(colIndex)));
+
+                        // Nếu cột là "Username", thêm sự kiện click
+                        if (i == 1) { // Cột Username (index 1)
+                            column.setCellFactory(col -> {
+                                TableCell<ObservableList<String>, String> cell = new TableCell<>() {
+                                    @Override
+                                    protected void updateItem(String username, boolean empty) {
+                                        super.updateItem(username, empty);
+                                        setText(empty ? null : username);
+                                        setGraphic(null);
+                                        setStyle("-fx-text-fill: blue; -fx-underline: true;");
+                                    }
+                                };
+                                
+                                cell.setOnMouseClicked(event -> {
+                                    String username = cell.getItem();
+                                    if (username != null) {
+                                        openLinkInBrowser("https://x.com/" + username);
+                                    }
+                                });
+
+                                return cell;
+                            });
+                        }
+
                         tableView.getColumns().add(column);
                     }
                     isFirstRow = false;
                 } else {
+                    // Thêm các hàng dữ liệu
                     ObservableList<String> row = FXCollections.observableArrayList(values);
                     tableView.getItems().add(row);
                 }
             }
         } catch (IOException ex) {
             showAlert("Error", "Failed to load the CSV file: " + ex.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    private void openLinkInBrowser(String url) {
+        try {
+            if (Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().browse(URI.create(url));
+            } else {
+                showAlert("Error", "Desktop not supported on this platform", Alert.AlertType.ERROR);
+            }
+        } catch (IOException e) {
+            showAlert("Error", "Failed to open the URL: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 

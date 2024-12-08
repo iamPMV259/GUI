@@ -37,10 +37,10 @@ public class CsvReader {
                     continue;
                 }
 
-                
+                int rank = Integer.parseInt(values[0]);
                 String username = values[1];
                 double rankingPoint = Double.parseDouble(values[2]);
-                rankings.add(new KolRanking(username, rankingPoint));
+                rankings.add(new KolRanking(rank, username, rankingPoint));
             }
         } catch (IOException | NumberFormatException e) {
             e.printStackTrace();

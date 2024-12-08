@@ -100,20 +100,26 @@ public class SearchController {
 
 
         if (tableView.getColumns().isEmpty()) {
+            TableColumn<ObservableList<String>, String> rankColumn = new TableColumn<>("Rank");
+            rankColumn.setCellValueFactory(cellData -> 
+                new javafx.beans.property.SimpleStringProperty(cellData.getValue().get(0)));
+            rankColumn.setCellFactory(col -> createClickableCell());
+            tableView.getColumns().add(rankColumn);
+
             TableColumn<ObservableList<String>, String> usernameColumn = new TableColumn<>("Username");
             usernameColumn.setCellValueFactory(cellData -> 
-                new javafx.beans.property.SimpleStringProperty(cellData.getValue().get(0)));
+                new javafx.beans.property.SimpleStringProperty(cellData.getValue().get(1)));
             usernameColumn.setCellFactory(col -> createClickableCell());
             tableView.getColumns().add(usernameColumn);
 
             TableColumn<ObservableList<String>, String> rankingColumn = new TableColumn<>("Ranking Points");
             rankingColumn.setCellValueFactory(cellData -> 
-                new javafx.beans.property.SimpleStringProperty(cellData.getValue().get(1)));
+                new javafx.beans.property.SimpleStringProperty(cellData.getValue().get(2)));
             tableView.getColumns().add(rankingColumn);
         }
 
         for (KolRanking kol : data) {
-            ObservableList<String> row = FXCollections.observableArrayList(kol.getUsername(), 
+            ObservableList<String> row = FXCollections.observableArrayList(String.valueOf(kol.getRank()), kol.getUsername(), 
                     String.valueOf(kol.getRankingPoint()));
             tableView.getItems().add(row);
         }

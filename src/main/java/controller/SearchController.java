@@ -43,7 +43,7 @@ public class SearchController {
         if ("All".equalsIgnoreCase(keyword)) {
             loadAllCsvFiles();
         } else {
-            File csvFile = new File("src/main/java/data", keyword + ".csv");
+            File csvFile = new File("src/main/resources/data", keyword + ".csv");
             if (csvFile.exists()) {
                 loadCsvFile(csvFile);
             } else {
@@ -60,7 +60,7 @@ public class SearchController {
 
 
     private void loadAllCsvFiles() {
-        File folder = new File("src/main/java/data");
+        File folder = new File("src/main/resources/data");
         File[] csvFiles = folder.listFiles((dir, name) -> name.endsWith(".csv"));
 
         if (csvFiles == null || csvFiles.length == 0) {
@@ -103,7 +103,6 @@ public class SearchController {
             TableColumn<ObservableList<String>, String> rankColumn = new TableColumn<>("Rank");
             rankColumn.setCellValueFactory(cellData -> 
                 new javafx.beans.property.SimpleStringProperty(cellData.getValue().get(0)));
-            rankColumn.setCellFactory(col -> createClickableCell());
             tableView.getColumns().add(rankColumn);
 
             TableColumn<ObservableList<String>, String> usernameColumn = new TableColumn<>("Username");

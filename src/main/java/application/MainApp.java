@@ -12,9 +12,11 @@ import view.ChartView;
 
 public class MainApp extends Application {
 
+    public static final String[] keywords = {"Blockchain", "DeFi", "Web3", "Bitcoin", "Ethereum", "NFT", "Crypto", "Memecoin", "All"};
+
     @Override
     public void start(Stage primaryStage) {
-        String[] keywords = {"Blockchain", "DeFi", "Web3", "Bitcoin", "Ethereum", "NFT", "Crypto", "Memecoin", "All"};
+        
 
        
         SearchView searchView = new SearchView(keywords);

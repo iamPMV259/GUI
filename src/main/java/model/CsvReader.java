@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CsvReader {
-    private final String folderPath = "src/main/java/data";
+    private final String folderPath = "src/main/resources/data";
 
     /**
      * 

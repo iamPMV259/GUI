@@ -13,6 +13,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import utils.*;
+import java.util.ArrayList;
 
 public class ChartView {
 
@@ -21,7 +22,7 @@ public class ChartView {
     private final ComboBox<String> keywordComboBox;
     private final ChartController chartController;
 
-    public ChartView(String[] keywords) {
+    public ChartView(ArrayList<String> keywords) {
         // Khởi tạo ChartController
         chartController = new ChartController();
 

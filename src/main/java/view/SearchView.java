@@ -2,6 +2,7 @@ package view;
 
 
 import javafx.collections.ObservableList;
+import java.util.ArrayList;
 import controller.SearchController;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
@@ -25,7 +26,7 @@ public class SearchView {
      *
      * @param keywords 
      */
-    public SearchView(String[] keywords) {
+    public SearchView(ArrayList<String> keywords) {
         // Initialize components
         searchBox = new ComboBox<>(FXCollections.observableArrayList(keywords));
         searchBox.setPromptText("Select a keyword to search");

@@ -7,18 +7,18 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.CsvFileNameReader;
 import view.SearchView;
 import view.ChartView;
+import java.util.ArrayList;
 
 public class MainApp extends Application {
 
-    public static final String[] keywords = {"Blockchain", "DeFi", "Web3", "Bitcoin", "Ethereum", "NFT", "Crypto", "Memecoin", "All"};
-
     @Override
-    public void start(Stage primaryStage) {
-        
-
-       
+    public void start(Stage primaryStage) {       
+    	
+    	ArrayList<String> keywords = CsvFileNameReader.getFileName();
+    	
         SearchView searchView = new SearchView(keywords);
         ChartView chartView = new ChartView(keywords);
 

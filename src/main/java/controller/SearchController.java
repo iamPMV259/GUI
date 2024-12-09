@@ -40,16 +40,14 @@ public class SearchController {
 
         clearTable();
 
-        if ("All".equalsIgnoreCase(keyword)) {
-            loadAllCsvFiles();
+        
+        File csvFile = new File("src/main/resources/data", keyword + ".csv");
+        if (csvFile.exists()) {
+            loadCsvFile(csvFile);
         } else {
-            File csvFile = new File("src/main/resources/data", keyword + ".csv");
-            if (csvFile.exists()) {
-                loadCsvFile(csvFile);
-            } else {
-                AlertUtils.showError("Error", "File not found for keyword: " + keyword);
-            }
+            AlertUtils.showError("Error", "File not found for keyword: " + keyword);
         }
+        
     }
 
 

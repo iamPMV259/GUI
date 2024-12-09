@@ -43,6 +43,7 @@ public class MainApp extends Application {
         chartButton.setOnAction(e -> root.setCenter(chartView.getRoot()));
 
         Scene scene = new Scene(root, 1000, 600);
+        
         primaryStage.setTitle("KOL Ranking App");
         primaryStage.setScene(scene);
         primaryStage.show();
